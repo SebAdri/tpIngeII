@@ -1,0 +1,271 @@
+﻿
+CREATE SEQUENCE public.laboratorios_id_lab_seq_1;
+
+CREATE TABLE public.Laboratorios (
+                id_lab INTEGER NOT NULL DEFAULT nextval('public.laboratorios_id_lab_seq_1'),
+                nombre_lab VARCHAR NOT NULL,
+                CONSTRAINT laboratorios_pk PRIMARY KEY (id_lab)
+);
+
+
+ALTER SEQUENCE public.laboratorios_id_lab_seq_1 OWNED BY public.Laboratorios.id_lab;
+
+CREATE SEQUENCE public.vacunas_id_vacuna_seq;
+
+CREATE TABLE public.Vacunas (
+                id_vacuna INTEGER NOT NULL DEFAULT nextval('public.vacunas_id_vacuna_seq'),
+                descripcion_vacuna VARCHAR NOT NULL,
+                fecha_vto DATE NOT NULL,
+                lote VARCHAR NOT NULL,
+                id_lab INTEGER NOT NULL,
+                CONSTRAINT vacunas_pk PRIMARY KEY (id_vacuna)
+);
+
+
+ALTER SEQUENCE public.vacunas_id_vacuna_seq OWNED BY public.Vacunas.id_vacuna;
+
+CREATE SEQUENCE public.titulos_id_titulo_seq_1;
+
+CREATE TABLE public.Titulos (
+                id_titulo INTEGER NOT NULL DEFAULT nextval('public.titulos_id_titulo_seq_1'),
+                descripcion_titulo VARCHAR NOT NULL,
+                CONSTRAINT titulos_pk PRIMARY KEY (id_titulo)
+);
+
+
+ALTER SEQUENCE public.titulos_id_titulo_seq_1 OWNED BY public.Titulos.id_titulo;
+
+CREATE TABLE public.Cargos (
+                id_cargo INTEGER NOT NULL,
+                descripcion_cargo VARCHAR NOT NULL,
+                CONSTRAINT cargos_pk PRIMARY KEY (id_cargo)
+);
+
+
+CREATE SEQUENCE public.ocupaciones_id_ocupacion_seq_1;
+
+CREATE TABLE public.ocupaciones (
+                id_ocupacion INTEGER NOT NULL DEFAULT nextval('public.ocupaciones_id_ocupacion_seq_1'),
+                descripcion_ocu VARCHAR NOT NULL,
+                CONSTRAINT ocupaciones_pk PRIMARY KEY (id_ocupacion)
+);
+
+
+ALTER SEQUENCE public.ocupaciones_id_ocupacion_seq_1 OWNED BY public.ocupaciones.id_ocupacion;
+
+CREATE SEQUENCE public.personas_personaid_seq;
+
+CREATE TABLE public.personas (
+                personaid INTEGER NOT NULL DEFAULT nextval('public.personas_personaid_seq'),
+                ci NUMERIC NOT NULL,
+                nomre VARCHAR NOT NULL,
+                apellido VARCHAR NOT NULL,
+                direccion VARCHAR NOT NULL,
+                fecha_nac DATE NOT NULL,
+                lugar_nac VARCHAR NOT NULL,
+                sexo BOOLEAN NOT NULL,
+                nacionalidad VARCHAR NOT NULL,
+                telefono VARCHAR,
+                CONSTRAINT personas_pk PRIMARY KEY (personaid)
+);
+
+
+ALTER SEQUENCE public.personas_personaid_seq OWNED BY public.personas.personaid;
+
+CREATE SEQUENCE public.profesionales_id_prof_seq;
+
+CREATE TABLE public.profesionales (
+                id_prof INTEGER NOT NULL DEFAULT nextval('public.profesionales_id_prof_seq'),
+                id_cargo INTEGER NOT NULL,
+                id_titulo INTEGER NOT NULL,
+                personaid INTEGER NOT NULL,
+                CONSTRAINT profesionales_pk PRIMARY KEY (id_prof)
+);
+
+
+ALTER SEQUENCE public.profesionales_id_prof_seq OWNED BY public.profesionales.id_prof;
+
+CREATE SEQUENCE public.padres_id_padre_seq;
+
+CREATE TABLE public.Padres (
+                id_padre INTEGER NOT NULL DEFAULT nextval('public.padres_id_padre_seq'),
+                personaid INTEGER NOT NULL,
+                id_ocupacion INTEGER NOT NULL,
+                seguro BOOLEAN NOT NULL,
+                CONSTRAINT padres_pk PRIMARY KEY (id_padre)
+);
+
+
+ALTER SEQUENCE public.padres_id_padre_seq OWNED BY public.Padres.id_padre;
+
+CREATE SEQUENCE public.hijos_id_hijo_seq;
+
+CREATE TABLE public.Hijos (
+                id_hijo INTEGER NOT NULL DEFAULT nextval('public.hijos_id_hijo_seq'),
+                alergia BOOLEAN NOT NULL,
+                personaid INTEGER NOT NULL,
+                id_padre INTEGER NOT NULL,
+                CONSTRAINT hijos_pk PRIMARY KEY (id_hijo)
+);
+
+
+ALTER SEQUENCE public.hijos_id_hijo_seq OWNED BY public.Hijos.id_hijo;
+
+CREATE TABLE public.Libretas (
+                id_lib INTEGER NOT NULL,
+                id_hijo INTEGER NOT NULL,
+                CONSTRAINT libretas_pk PRIMARY KEY (id_lib)
+);
+
+
+CREATE SEQUENCE public.libreta_detalle_id_lib_detalle_seq;
+
+CREATE TABLE public.Libreta_Detalle (
+                id_lib_detalle INTEGER NOT NULL DEFAULT nextval('public.libreta_detalle_id_lib_detalle_seq'),
+                id_lib INTEGER NOT NULL,
+                id_vacuna INTEGER NOT NULL,
+                id_prof INTEGER NOT NULL,
+                Dosis VARCHAR NOT NULL,
+                Peso VARCHAR NOT NULL,
+                fecha_apl DATE NOT NULL,
+                Edad INTEGER NOT NULL,
+                fecha_prox DATE NOT NULL,
+                CONSTRAINT libreta_detalle_pk PRIMARY KEY (id_lib_detalle)
+);
+
+
+ALTER SEQUENCE public.libreta_detalle_id_lib_detalle_seq OWNED BY public.Libreta_Detalle.id_lib_detalle;
+
+CREATE SEQUENCE public.users_pk_id_seq;
+
+CREATE TABLE public.Users (
+                pk_id INTEGER NOT NULL DEFAULT nextval('public.users_pk_id_seq'),
+                username VARCHAR NOT NULL,
+                correo VARCHAR NOT NULL,
+                CONSTRAINT id PRIMARY KEY (pk_id)
+);
+
+
+ALTER SEQUENCE public.users_pk_id_seq OWNED BY public.Users.pk_id;
+
+CREATE SEQUENCE public.roles_rol_id_seq;
+
+CREATE TABLE public.roles (
+                rol_id INTEGER NOT NULL DEFAULT nextval('public.roles_rol_id_seq'),
+                pk_id INTEGER NOT NULL,
+                descripcion VARCHAR NOT NULL,
+                CONSTRAINT roles_pk PRIMARY KEY (rol_id)
+);
+
+
+ALTER SEQUENCE public.roles_rol_id_seq OWNED BY public.roles.rol_id;
+
+CREATE SEQUENCE public.permiso_id_permiso_id_seq;
+
+CREATE TABLE public.PERMISO_ID (
+                PERMISO_ID INTEGER NOT NULL DEFAULT nextval('public.permiso_id_permiso_id_seq'),
+                rol_id INTEGER NOT NULL,
+                descripcion_permiso VARCHAR NOT NULL,
+                CONSTRAINT permiso_id_pk PRIMARY KEY (PERMISO_ID)
+);
+
+
+ALTER SEQUENCE public.permiso_id_permiso_id_seq OWNED BY public.PERMISO_ID.PERMISO_ID;
+
+ALTER TABLE public.Vacunas ADD CONSTRAINT laboratorios_vacunas_fk
+FOREIGN KEY (id_lab)
+REFERENCES public.Laboratorios (id_lab)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Libreta_Detalle ADD CONSTRAINT vacunas_libreta_detalle_fk
+FOREIGN KEY (id_vacuna)
+REFERENCES public.Vacunas (id_vacuna)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.profesionales ADD CONSTRAINT titulos_profesionales_fk
+FOREIGN KEY (id_titulo)
+REFERENCES public.Titulos (id_titulo)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.profesionales ADD CONSTRAINT cargos_profesionales_fk
+FOREIGN KEY (id_cargo)
+REFERENCES public.Cargos (id_cargo)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Padres ADD CONSTRAINT ocupaciones_padres_fk
+FOREIGN KEY (id_ocupacion)
+REFERENCES public.ocupaciones (id_ocupacion)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Padres ADD CONSTRAINT personas_padres_fk
+FOREIGN KEY (personaid)
+REFERENCES public.personas (personaid)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Hijos ADD CONSTRAINT personas_hijos_fk
+FOREIGN KEY (personaid)
+REFERENCES public.personas (personaid)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.profesionales ADD CONSTRAINT personas_profesionales_fk
+FOREIGN KEY (personaid)
+REFERENCES public.personas (personaid)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Libreta_Detalle ADD CONSTRAINT profesionales_libreta_detalle_fk
+FOREIGN KEY (id_prof)
+REFERENCES public.profesionales (id_prof)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Hijos ADD CONSTRAINT padres_hijos_fk
+FOREIGN KEY (id_padre)
+REFERENCES public.Padres (id_padre)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Libretas ADD CONSTRAINT hijos_libretas_fk
+FOREIGN KEY (id_hijo)
+REFERENCES public.Hijos (id_hijo)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.Libreta_Detalle ADD CONSTRAINT libretas_libreta_detalle_fk
+FOREIGN KEY (id_lib)
+REFERENCES public.Libretas (id_lib)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.roles ADD CONSTRAINT users_roles_fk
+FOREIGN KEY (pk_id)
+REFERENCES public.Users (pk_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.PERMISO_ID ADD CONSTRAINT roles_permiso_id_fk
+FOREIGN KEY (rol_id)
+REFERENCES public.roles (rol_id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
