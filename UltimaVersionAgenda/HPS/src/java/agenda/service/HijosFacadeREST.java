@@ -153,9 +153,23 @@ public class HijosFacadeREST extends AbstractFacade<Hijos> {
             oMapResult.put("sexo", oResultArray[6]);
             resultlist.add(oMapResult);
         }
-        
+        actualizarNotificaciones(idPadre);
         return resultlist;
     }
+    private void actualizarNotificaciones(Long idPadre) {
+
+	    try{        
+	    	String countQuery = " UPDATE vacunas SET notificado = true where id_hijo in ( select DISTINCT h.id_hijo from public.usuarios u "
+				+" JOIN public.hijos h on u.id_usuario = h.id_padre "
+				+" JOIN public.vacunas v on h.id_hijo = v.id_hijo	 "
+				+" WHERE v.fecha_aplicacion <= now() + interval '2 day'  "
+				+" and v.notificado = false "
+				+" and u.id_usuario = "+idPadre.toString() +" ) ";
+                em.createNativeQuery(countQuery).executeUpdate();
+	    }catch (PersistenceException pe){
+	        pe.printStackTrace();
+	    }
+	}
     
     
     @POST
