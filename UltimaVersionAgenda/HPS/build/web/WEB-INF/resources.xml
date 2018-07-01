@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="coneAge" type="javax.sql.DataSource">#Mon Jun 11 20:37:39 PYT 2018
+jdbcDriver=org.postgresql.Driver
+password=postgres
+userName=postgres
+jdbcUrl=jdbc\:postgresql\://localhost\:5432/Agenda_M
+</Resource>
+</resources>
