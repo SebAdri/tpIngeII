@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "195593001144",
+    "firebase_url": "https://agendapediatrica-189402.firebaseio.com",
+    "project_id": "agendapediatrica-189402",
+    "storage_bucket": "agendapediatrica-189402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195593001144:android:a5ce0d2617ebafd9",
+        "android_client_info": {
+          "package_name": "agenda.agenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195593001144-02qmdu6g0gqukp2o6dbe46bj8q7t00op.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "195593001144-dhgue6s7i1aph49lteh3m4p80bn0u1mq.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "195593001144-8k7bumnirlvu0tu5lh4f2nmb4ltg83o2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "195593001144-i66u3v5ilncpkl51drn04ivs414efd05.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "agenda.agenda",
+            "certificate_hash": "8f6e994d934bd3c6e319412895f2009f394dff6a"
+          }
+        },
+        {
+          "client_id": "195593001144-dhgue6s7i1aph49lteh3m4p80bn0u1mq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqAk5VAcT1hcfm7xWWNfQ-ZWLFPbX9TCw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195593001144-02qmdu6g0gqukp2o6dbe46bj8q7t00op.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

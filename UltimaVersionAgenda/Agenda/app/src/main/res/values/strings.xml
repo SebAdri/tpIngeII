@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HSP</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="server_client_id">195593001144-dhgue6s7i1aph49lteh3m4p80bn0u1mq.apps.googleusercontent.com</string>
+    <string name="salir_app">Desea salir de la aplicación?</string>
+    <string name="cerrar_sesion">Desea cerrar sesión?</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_rechazar">Rechazar</string>
+    <string name="search_hint">Buscar</string>
+</resources>
